@@ -6,16 +6,21 @@ function App() {
         console.log('token id', googleData.tokenId)
         // const formData = new FormData()
         // formData.append("code", googleData.tokenId)
-        const res = await fetch("http://localhost:9090/login-iam", {
-            method: "POST",
-            body: JSON.stringify({ token: googleData.tokenId }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const data = await res.json()
-        console.log('data', data)
-        // store returned user somehow
+        console.log("token id", googleData.tokenId)
+        if (googleData.tokenId) {
+            const res = await fetch("http://localhost:9090/login-iam", {
+                method: "POST",
+                body: JSON.stringify({token: googleData.tokenId}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            const data = await res.json()
+            console.log('data', data)
+            // store returned user somehow
+        } else {
+            console.error('token id is invalid')
+        }
     }
   return (
     <div className="App">
